@@ -9,6 +9,7 @@ var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
 var browserSync = require('browser-sync');
 var mochaPhantomJS = require('gulp-mocha-phantomjs');
+var sourcemaps = require('gulp-sourcemaps');
 
 gulp.task('build:js', function (done) {
     var banner = [
@@ -19,6 +20,7 @@ gulp.task('build:js', function (done) {
         ' */',
         ''].join('\n');
     gulp.src('src/*.js')
+        .pipe(sourcemaps.init())
         .pipe(tap(function (file) {
             var content = file.contents.toString();
             content = content.replace(/@VERSION/g, pkg.version);
@@ -41,6 +43,7 @@ gulp.task('build:js', function (done) {
         .pipe(rename(function (path) {
             path.basename += '.min';
         }))
+        .pipe(sourcemaps.write('./'))
         .pipe(gulp.dest('dist'))
         .on('end', done);
 });
