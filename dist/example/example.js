@@ -129,5 +129,12 @@ $(function () {
             console.log('click clear');
         }
     });
+
+    // swipe out
+    $('.weui_cells_swipeout').swipeOut().on('touchstart', '.swipe_action1', (e) => {
+        $.weui.alert('action1');
+    }).on('click', '.swipe_action2', (e) => {
+        $.weui.alert('action2');
+    });
 });
 
